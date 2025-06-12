@@ -1,6 +1,7 @@
 import {calculatePasswordStrength} from "../src/calc-psw-strength";
 
 describe('calculate password strength', () => {
+
     // === THROW ERROR ===
     test('should throw error for empty password', () => {
         expect(() => calculatePasswordStrength('')).toThrow('Password cannot be empty');
@@ -124,13 +125,83 @@ describe('calculate password strength', () => {
         expect(calculatePasswordStrength("@#$@#$@#$@#$@#")).toBe("Weak");
     })
 
-
-
-    test('should return "Moderate" if strength === 4', () => {
-        expect(calculatePasswordStrength("01Wp0019")).toBe("Moderate");
+    // === Moderate ===
+    test('Moderate: length < 8 and all types', () => {
+        expect(calculatePasswordStrength("aB1@")).toBe("Moderate");
     })
 
-    test('should return "Strong" if strength >= 5', () => {
-        expect(calculatePasswordStrength("01Wp0019@")).toBe("Strong");
+    test('Moderate: 12 > length ≥ 8 lowercase, uppercase, digits', () => {
+        expect(calculatePasswordStrength("abcABC123")).toBe("Moderate");
+    })
+
+    test('Moderate: 12 > length ≥ 8 lowercase, uppercase, symbols', () => {
+        expect(calculatePasswordStrength("abcABC!@#")).toBe("Moderate");
+    })
+
+    test('Moderate: 12 > length ≥ 8 lowercase, digits, symbols', () => {
+        expect(calculatePasswordStrength("abc123!@#")).toBe("Moderate");
+    })
+
+    test('Moderate: 12 > length ≥ 8 uppercase, digits, symbols', () => {
+        expect(calculatePasswordStrength("ABC123!@#")).toBe("Moderate");
+    })
+
+    test('Moderate: length ≥ 12 lowercase, uppercase', () => {
+        expect(calculatePasswordStrength("abcdefABCDEF")).toBe("Moderate");
+    })
+
+    test('Moderate: length ≥ 12 lowercase, digits', () => {
+        expect(calculatePasswordStrength("abcdef123456")).toBe("Moderate");
+    })
+
+    test('Moderate: length ≥ 12 lowercase, symbols', () => {
+        expect(calculatePasswordStrength("abcdef!@#$%ˆ")).toBe("Moderate");
+    })
+
+    test('Moderate: length ≥ 12 uppercase, digits', () => {
+        expect(calculatePasswordStrength("ABCDEF123456")).toBe("Moderate");
+    })
+
+    test('Moderate: length ≥ 12 uppercase, symbols', () => {
+        expect(calculatePasswordStrength("ABCDEF!@#$%ˆ")).toBe("Moderate");
+    })
+
+    test('Moderate: length ≥ 12 symbols, digits', () => {
+        expect(calculatePasswordStrength("!@#$%ˆ123456")).toBe("Moderate");
+    })
+
+    // === STRONG ===
+
+    test('Strong: 12 > length ≥ 8 + all types', () => {
+        expect(calculatePasswordStrength("AAbb33$$")).toBe("Strong");
+    })
+
+    test('Strong: length ≥ 12 + lowercase, uppercase and digits', () => {
+        expect(calculatePasswordStrength("AAAAbbbb3333")).toBe("Strong");
+    })
+
+    test('Strong: length ≥ 12 + lowercase, uppercase and symbols', () => {
+        expect(calculatePasswordStrength("AAAAbbbb####")).toBe("Strong");
+    })
+
+    test('Strong: length ≥ 12 + lowercase, symbols and digits', () => {
+        expect(calculatePasswordStrength("bbbb$$$$3333")).toBe("Strong");
+    })
+
+    test('Strong: length ≥ 12 + uppercase, symbols and digits', () => {
+        expect(calculatePasswordStrength("AAAA@@@@3333")).toBe("Strong");
+    })
+
+// === trim() ===
+    test('end spaces should be trimmed', () => {
+        expect(calculatePasswordStrength('1234567 ')).toBe("Very Weak");
+    })
+
+    test('start spaces should be trimmed', () => {
+        expect(calculatePasswordStrength(' 1234567')).toBe("Very Weak");
+    })
+
+    test('both: end and start spaces should be trimmed', () => {
+        expect(calculatePasswordStrength(' 1234567 ')).toBe("Very Weak");
     })
 })

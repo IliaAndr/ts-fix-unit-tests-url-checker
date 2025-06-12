@@ -1,5 +1,6 @@
 export function calculatePasswordStrength(password: string): string {
-    if (!password || password.trim() === '') {
+    password = password.trim();
+    if (!password) {
         throw new Error('Password cannot be empty');
     }
 
