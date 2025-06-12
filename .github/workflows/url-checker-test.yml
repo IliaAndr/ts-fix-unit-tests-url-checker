@@ -1,4 +1,4 @@
-name: Run Calculate Password Strength Tests
+name: Run URL Checker Tests
 
 # Trigger the workflow on every push or pull request to the main branch
 on:
@@ -6,14 +6,14 @@ on:
     branches:
       - main
     paths:
-      - 'src/calc-psw-strength.ts'
-      - 'tests/calc-psw-strength.test.ts'
+      - 'src/url-checker.ts'
+      - 'src/url-checker.test.ts'
   pull_request:
     branches:
       - main
     paths:
-      - 'src/calc-psw-strength.ts'
-      - 'tests/calc-psw-strength.test.ts'
+      - 'src/url-checker.ts'
+      - 'src/url-checker.test.ts'
 
 jobs:
   test:
@@ -34,6 +34,6 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      # Run password strength tests
-      - name: Run password strength tests
-        run: npm test:password
+      # Run URL checker tests
+      - name: Run URL checker tests
+        run: npm test:url
