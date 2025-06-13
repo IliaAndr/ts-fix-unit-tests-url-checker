@@ -3,7 +3,10 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "npx jest"
+    "test": "npx jest",
+    "test:url": "npx jest tests/url-checker.test.ts",
+    "test:password": "npx jest tests/calc-psw-strength.test.ts",
+    "format": "npx prettier --write ."
   },
   "keywords": [],
   "author": "",
