@@ -36,4 +36,4 @@ jobs:
 
       # Run password strength tests
       - name: Run password strength tests
-        run: npm test:password
+        run: npm run test:password

@@ -36,4 +36,4 @@ jobs:
 
       # Run URL checker tests
       - name: Run URL checker tests
-        run: npm test:url
+        run: npm run test:url
